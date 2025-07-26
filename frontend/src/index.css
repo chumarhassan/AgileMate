@@ -1,0 +1,232 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* Reset and Base Styles */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #root {
+  height: 100%; /* Ensure full height for layout */
+  width: 100%;
+}
+
+body {
+  font-family: 'Inter', sans-serif; /* Fallback to generic sans-serif */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+}
+
+/* Color Palette Variables (Dark Theme) */
+:root {
+  --color-dark-purple: #1A0026; /* Deeper, darker purple for background */
+  --color-primary-purple: #3A005B; /* Primary background/card color */
+  --color-secondary-purple: #2A003B; /* Slightly lighter than primary for contrast */
+  --color-accent-pink: #FF69B4; /* Vibrant pink for accents and highlights */
+  --color-light-pink: #D05CE3; /* A lighter, more purplish pink */
+  --color-text-light: #E0E0E0; /* Light gray for most text */
+  --color-text-dim: #A0A0A0; /* Dimmed text for secondary info */
+  --color-border-gradient-start: #8B008B; /* Start of gradient border */
+  --color-border-gradient-end: #5C007C; /* End of gradient border */
+  --color-button-hover: #D842A1; /* Button hover state */
+}
+
+/* Global Dark Theme Application */
+body {
+  background-color: var(--color-dark-purple);
+  color: var(--color-text-light);
+  overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+a {
+  color: var(--color-accent-pink);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--color-light-pink);
+}
+
+button {
+  background-color: var(--color-accent-pink);
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+  background-color: var(--color-button-hover);
+  transform: translateY(-2px);
+}
+
+/* Basic Layout - Flexbox for full height */
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem; /* Padding on sides for responsiveness */
+  width: 100%;
+}
+
+/* Header Styles */
+.header {
+  background: linear-gradient(to right top, var(--color-secondary-purple), var(--color-primary-purple));
+  padding: 1rem 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap; /* Allow wrapping on small screens */
+}
+
+.logo {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--color-accent-pink);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.nav-list {
+  display: flex;
+  list-style: none;
+  margin-left: auto; /* Push nav to the right */
+}
+
+.nav-list li {
+  margin-left: 1.5rem;
+}
+
+.nav-list a {
+  font-size: 1.1rem;
+  font-weight: 500;
+  padding: 0.5rem 0.8rem;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.nav-list a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--color-light-pink);
+}
+
+/* Main Content Styles */
+.main-content {
+  flex-grow: 1; /* Allows content area to take up available space */
+  padding: 2rem 0;
+}
+
+.hero-section {
+  background-color: var(--color-primary-purple);
+  border-radius: 12px;
+  padding: 3rem;
+  text-align: center;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+  margin-bottom: 2rem;
+  border: 1px solid var(--color-border-gradient-start); /* Simple border for now */
+  position: relative;
+  overflow: hidden; /* For gradient borders */
+}
+/* Gradient border effect (pure CSS, more complex than simple border) */
+.hero-section::before {
+    content: '';
+    position: absolute;
+    inset: -2px; /* expands border slightly */
+    border-radius: 14px; /* slightly larger than parent */
+    padding: 2px; /* control thickness */
+    background: linear-gradient(to right, var(--color-border-gradient-start), var(--color-border-gradient-end));
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    z-index: -1; /* Place behind content */
+}
+
+
+.hero-section h2 {
+  font-size: 3rem;
+  color: var(--color-accent-pink);
+  margin-bottom: 1rem;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.hero-section p {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+  color: var(--color-text-dim);
+}
+
+/* Footer Styles */
+.footer {
+  background-color: var(--color-secondary-purple);
+  color: var(--color-text-dim);
+  padding: 1rem 0;
+  text-align: center;
+  font-size: 0.9rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Responsive Adjustments (Basic) */
+@media (max-width: 768px) {
+  .header-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .nav-list {
+    margin-top: 1rem;
+    margin-left: 0;
+    width: 100%;
+    justify-content: center;
+  }
+  .nav-list li {
+    margin: 0 0.8rem;
+  }
+  .logo {
+    font-size: 2rem;
+  }
+  .hero-section {
+    padding: 2rem;
+  }
+  .hero-section h2 {
+    font-size: 2.2rem;
+  }
+  .hero-section p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-list {
+    flex-direction: column;
+    align-items: center;
+  }
+  .nav-list li {
+    margin: 0.5rem 0;
+  }
+  button {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
+}
+
