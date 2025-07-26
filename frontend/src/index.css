@@ -277,3 +277,303 @@ button:hover {
         width: 100%;
     }
 }
+
+/* Project Management Section Styles */
+.project-management-section {
+  display: grid;
+  gap: 2rem;
+  margin-top: 2rem;
+  grid-template-columns: 1fr; /* Default to single column */
+}
+
+@media (min-width: 768px) {
+  .project-management-section {
+    grid-template-columns: 1fr 1fr; /* Two columns on larger screens */
+  }
+}
+
+.card-panel {
+  background-color: var(--color-primary-purple);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  position: relative;
+  overflow: hidden;
+  /* Add a subtle gradient border effect */
+}
+.card-panel::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 13px;
+    padding: 1px;
+    background: linear-gradient(to right, var(--color-border-gradient-start), var(--color-border-gradient-end));
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    z-index: -1;
+}
+
+
+.card-title {
+  font-size: 2rem;
+  color: var(--color-accent-pink);
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+/* Form Styles */
+.form-card .form-title {
+    color: var(--color-light-pink); /* A slightly different pink for form titles */
+}
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+  color: var(--color-text-light);
+}
+
+.input-field {
+  width: 100%;
+  padding: 0.8rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: var(--color-secondary-purple);
+  color: var(--color-text-light);
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: var(--color-accent-pink);
+  box-shadow: 0 0 0 3px rgba(255, 105, 180, 0.2);
+}
+
+.input-field.textarea-field {
+  resize: vertical; /* Allow vertical resizing for textareas */
+  min-height: 80px;
+}
+
+.error-message {
+  color: #FF4D4D; /* Bright red for errors */
+  background-color: rgba(255, 77, 77, 0.1);
+  border: 1px solid #FF4D4D;
+  padding: 0.8rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+/* Project List Styles */
+.project-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.project-item {
+  background-color: var(--color-secondary-purple);
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  position: relative;
+  overflow: hidden;
+  /* Subtle gradient effect on hover */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.project-item::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, var(--color-accent-pink), var(--color-light-pink));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 0; /* Behind content */
+}
+.project-item:hover::before {
+    opacity: 0.05; /* Light gradient on hover */
+}
+
+.project-item:hover {
+  background-color: var(--color-primary-purple); /* Darken slightly on hover */
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+}
+
+.project-item .project-name {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--color-accent-pink);
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.project-item .project-description {
+  font-size: 1rem;
+  color: var(--color-text-dim);
+}
+
+.status-info {
+    font-size: 0.9rem;
+    color: var(--color-text-dim);
+    margin-top: 0.5rem;
+}
+
+/* Styles for selected project details (future expansion) */
+.selected-project-details {
+    text-align: center;
+}
+.selected-project-details h3 {
+    color: var(--color-light-pink);
+}
+/* Daily Standup Form Styles */
+.standup-form-card {
+    margin-top: 2rem;
+}
+
+/* Daily Standup Summary Display */
+.daily-summary-section {
+  margin-top: 2rem;
+}
+
+.summary-content {
+  background-color: var(--color-secondary-purple);
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  color: var(--color-text-light);
+  line-height: 1.8;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Styles for content rendered by ReactMarkdown */
+.summary-content h1,
+.summary-content h2,
+.summary-content h3 {
+  color: var(--color-accent-pink); /* Prominent heading color */
+  margin-top: 1.5rem;
+  margin-bottom: 0.8rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Subtle underline */
+  padding-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.summary-content h1 { font-size: 2.2rem; }
+.summary-content h2 { font-size: 1.8rem; }
+.summary-content h3 { font-size: 1.5rem; }
+
+.summary-content p {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+.summary-content ul {
+  list-style: disc; /* Use disk bullets */
+  padding-left: 1.5rem; /* Indent lists */
+  margin-bottom: 1rem;
+}
+
+.summary-content ol {
+    list-style: decimal;
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.summary-content li {
+  margin-bottom: 0.5rem;
+  color: var(--color-text-light);
+}
+
+.summary-content strong {
+  color: var(--color-light-pink); /* Make bold text stand out */
+  font-weight: 600;
+}
+
+.summary-content pre {
+  background-color: var(--color-dark-purple);
+  padding: 1rem;
+  border-radius: 8px;
+  margin-top: 1rem;
+  overflow-x: auto; /* Enable horizontal scrolling for code blocks */
+  white-space: pre-wrap; /* Wrap long lines */
+  word-break: break-all; /* Break long words */
+}
+
+.summary-content code {
+  background-color: var(--color-accent-purple-dark);
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  font-family: 'Fira Code', 'Cascadia Code', 'Consolas', monospace; /* Nice monospaced font */
+  font-size: 0.9em;
+  color: var(--color-highlight-code); /* Differentiate code color */
+}
+
+/* Improve overall button styling - ensure consistency */
+button {
+    background-color: var(--color-accent-pink);
+    color: var(--color-text-dark); /* Dark text on bright button */
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+button:hover {
+    background-color: var(--color-light-pink); /* Lighter pink on hover */
+    transform: translateY(-2px);
+}
+
+button:disabled {
+    background-color: var(--color-gray);
+    color: var(--color-text-dim);
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Adjust the "Back to All Projects" button to fit theme */
+.selected-project-details button {
+    background-color: var(--color-secondary-purple); /* Darker, less prominent */
+    color: var(--color-text-light);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: normal;
+}
+
+.selected-project-details button:hover {
+    background-color: var(--color-primary-purple);
+    transform: translateY(-1px);
+}
+
+.success-message {
+  color: #79d858; /* Green for success */
+  background-color: rgba(121, 216, 88, 0.1);
+  border: 1px solid #79d858;
+  padding: 0.8rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  text-align: center;
+}

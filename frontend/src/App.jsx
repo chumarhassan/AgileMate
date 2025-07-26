@@ -1,9 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import Auth from './components/Auth'; // Import the Auth component
+import Auth from './components/Auth';
+import ProjectForm from './components/ProjectForm';
+import ProjectList from './components/ProjectList';
+import DailyStandupForm from './components/DailyStandupForm'; // Import new component
+import DailyStandupSummary from './components/DailyStandupSummary'; // Import new component
+import { auth } from './firebase';
 
 function App() {
   const [backendMessage, setBackendMessage] = useState('Connecting to backend...');
   const [error, setError] = useState(null);
+  const [projectListKey, setProjectListKey] = useState(0);
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setIsLoggedIn(!!user);
+      // If user logs out, clear selected project
+      if (!user) {
+        setSelectedProject(null);
+      }
+    });
+    return () => unsubscribe();
+  }, []);
 
   useEffect(() => {
     const fetchBackendStatus = async () => {
@@ -24,9 +43,29 @@ function App() {
     fetchBackendStatus();
   }, []);
 
+  const handleProjectCreated = (newProject) => {
+    console.log('New project created:', newProject);
+    setProjectListKey(prevKey => prevKey + 1);
+    setSelectedProject(newProject); // Auto-select new project
+  };
+
+  const handleProjectSelected = (project) => {
+    setSelectedProject(project);
+    console.log('Project selected:', project.name);
+  };
+
+  // Function to refresh the daily standup summary
+  const refreshDailySummary = () => {
+    // We'll use a key prop on DailyStandupSummary to force re-render
+    // or a state update that its useEffect watches. For simplicity, just refetch
+    // if the component itself handles fetching. No direct action here needed.
+    // The DailyStandupSummary component already has a useEffect watching projectId and selectedDate.
+    // We can optionally pass a refetch trigger if needed for more complex scenarios.
+  };
+
+
   return (
     <div className="app-container">
-      {/* Header */}
       <header className="header">
         <div className="container header-content">
           <div className="logo">AgileMate</div>
@@ -35,38 +74,67 @@ function App() {
               <li><a href="#dashboard">Dashboard</a></li>
               <li><a href="#projects">Projects</a></li>
               <li><a href="#settings">Settings</a></li>
-              {/* Place Auth component here or wherever appropriate for login/logout */}
-              <li><Auth /></li> {/* This will render Sign In/Welcome/Logout */}
+              <li><Auth /></li>
             </ul>
           </nav>
         </div>
       </header>
 
-      {/* Main Content Area */}
       <main className="main-content">
         <div className="container">
           <section className="hero-section">
             <h2>Welcome to AgileMate!</h2>
             <p>Your AI-Powered Scrum Master Assistant.</p>
             <p>Streamline your agile workflows and empower your team with intelligent automation.</p>
-            {/* <button>Get Started</button> Removed for now, Auth component handles login */}
           </section>
 
-          {/* Display Backend Status */}
-          <section className="dashboard-summary" style={{ marginTop: '2rem', padding: '1.5rem', borderRadius: '8px', backgroundColor: 'var(--color-secondary-purple)', boxShadow: '0 4px 8px rgba(0,0,0,0.2)' }}>
+          <section className="dashboard-summary">
             <h3>Backend Connection Status:</h3>
             {error ? (
-              <p style={{ color: 'red' }}>{error}</p>
+              <p className="error-message">{error}</p>
             ) : (
               <p>{backendMessage}</p>
             )}
-            <p style={{ fontSize: '0.9rem', color: 'var(--color-text-dim)', marginTop: '0.5rem' }}>This shows if your frontend can talk to your backend API.</p>
+            <p className="status-info">This shows if your frontend can talk to your backend API.</p>
           </section>
+
+          {isLoggedIn ? (
+            <div className="project-management-section">
+              {!selectedProject ? (
+                <>
+                  <ProjectForm onProjectCreated={handleProjectCreated} />
+                  <ProjectList key={projectListKey} onProjectSelected={handleProjectSelected} />
+                </>
+              ) : (
+                <div className="selected-project-view">
+                  <div className="card-panel selected-project-details" style={{ marginBottom: '2rem' }}>
+                    <h3 className="card-title">Project: {selectedProject.name}</h3>
+                    <p>{selectedProject.description}</p>
+                    <button onClick={() => setSelectedProject(null)}>← Back to All Projects</button>
+                    {/* More details and actions for the selected project will go here */}
+                  </div>
+
+                  {/* Daily Standup Section */}
+                  <DailyStandupForm
+                    projectId={selectedProject.id}
+                    onUpdateSubmitted={refreshDailySummary} // Pass callback to trigger summary refresh
+                  />
+                  <DailyStandupSummary
+                    projectId={selectedProject.id}
+                  />
+                </div>
+              )}
+            </div>
+          ) : (
+            <section className="hero-section" style={{ marginTop: '2rem', textAlign: 'center' }}>
+                <p style={{fontSize: '1.2rem'}}>Please sign in to manage your projects and daily standups.</p>
+            </section>
+          )}
+
 
         </div>
       </main>
 
-      {/* Footer */}
       <footer className="footer">
         <div className="container">
           <p>&copy; {new Date().getFullYear()} AgileMate. All rights reserved.</p>
