@@ -230,3 +230,50 @@ button:hover {
   }
 }
 
+/* Auth Component Styles */
+.auth-container {
+  margin-left: 1.5rem; /* Align with other nav items */
+}
+
+.auth-container button {
+  background-color: var(--color-light-pink); /* Different button color */
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border-radius: 5px;
+  white-space: nowrap; /* Prevent button text from wrapping */
+}
+
+.auth-container button:hover {
+  background-color: var(--color-accent-pink);
+}
+
+.logged-in-state {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--color-light-pink);
+}
+
+.logged-in-state p {
+    margin: 0; /* Remove default paragraph margin */
+    padding: 0.5rem 0; /* Align with button padding */
+}
+
+/* Responsive adjustments for Auth component */
+@media (max-width: 768px) {
+    .auth-container {
+        margin: 0.5rem 0; /* Adjust margin for stacked layout */
+        width: 100%;
+        text-align: center;
+    }
+    .auth-container button {
+        width: auto; /* Allow button to size naturally */
+        margin: 0 auto; /* Center button */
+    }
+    .logged-in-state {
+        justify-content: center; /* Center content when stacked */
+        width: 100%;
+    }
+}

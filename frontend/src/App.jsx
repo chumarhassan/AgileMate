@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-// No need to import index.css here, it's already in main.jsx
+import Auth from './components/Auth'; // Import the Auth component
 
 function App() {
   const [backendMessage, setBackendMessage] = useState('Connecting to backend...');
@@ -8,7 +8,7 @@ function App() {
   useEffect(() => {
     const fetchBackendStatus = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/status'); // Target your backend API
+        const response = await fetch('http://localhost:3000/api/status');
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -22,7 +22,7 @@ function App() {
     };
 
     fetchBackendStatus();
-  }, []); // Empty dependency array means this runs once on mount
+  }, []);
 
   return (
     <div className="app-container">
@@ -35,7 +35,8 @@ function App() {
               <li><a href="#dashboard">Dashboard</a></li>
               <li><a href="#projects">Projects</a></li>
               <li><a href="#settings">Settings</a></li>
-              <li><a href="#login">Login</a></li> {/* Placeholder */}
+              {/* Place Auth component here or wherever appropriate for login/logout */}
+              <li><Auth /></li> {/* This will render Sign In/Welcome/Logout */}
             </ul>
           </nav>
         </div>
@@ -48,7 +49,7 @@ function App() {
             <h2>Welcome to AgileMate!</h2>
             <p>Your AI-Powered Scrum Master Assistant.</p>
             <p>Streamline your agile workflows and empower your team with intelligent automation.</p>
-            <button>Get Started</button>
+            {/* <button>Get Started</button> Removed for now, Auth component handles login */}
           </section>
 
           {/* Display Backend Status */}
