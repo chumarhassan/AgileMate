@@ -14,7 +14,7 @@ yarn-debug.log*
 # Backend (Express) specific exclusions
 /backend/node_modules
 /backend/.env
-
+/backend/serviceAccountKey.json
 # Operating System / Editor Specific
 .DS_Store
 Thumbs.db
