@@ -1,0 +1,21 @@
+# Common Node.js exclusions
+node_modules/
+.env
+npm-debug.log*
+yarn-debug.log*
+
+# Frontend (React) specific exclusions
+/frontend/build
+/frontend/dist # For Vite builds
+/frontend/.env.local
+/frontend/.env.development.local
+/frontend/.env.production.local
+
+# Backend (Express) specific exclusions
+/backend/node_modules
+/backend/.env
+
+# Operating System / Editor Specific
+.DS_Store
+Thumbs.db
+.vscode/
